@@ -1,0 +1,4 @@
+client_id,full_name,birth_date,phone,email,registration_date
+1,Иванов Иван Иванович,1988-02-10,+491700000001,ivan@example.com,2024-01-15
+2,Петрова Анна Сергеевна,1992-07-21,+491700000002,anna@example.com,2024-03-20
+3,Сидоров Алексей Петрович,1985-11-05,+491700000003,alex@example.com,2025-02-01

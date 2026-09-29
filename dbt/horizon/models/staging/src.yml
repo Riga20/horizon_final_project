@@ -1,0 +1,12 @@
+version: 2
+sources:
+  - name: staging
+    schema: staging
+    tables:
+      - name: sales_raw
+      - name: clients_raw
+      - name: cards_raw
+      - name: loyalty_transactions_raw
+      - name: hr_raw
+      - name: products_raw
+      - name: stores_raw

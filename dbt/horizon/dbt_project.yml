@@ -1,0 +1,15 @@
+name: horizon
+version: '1.0.0'
+config-version: 2
+profile: horizon
+model-paths: ["models"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+models:
+  horizon:
+    staging:
+      +materialized: view
+    core:
+      +materialized: incremental
+    marts:
+      +materialized: table

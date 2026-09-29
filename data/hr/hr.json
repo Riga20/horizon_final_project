@@ -1,0 +1,26 @@
+[
+  {
+    "employee_id": 1,
+    "full_name": "Иванова Мария",
+    "position": "кассир",
+    "store_id": "S001",
+    "hire_date": "2024-02-01",
+    "termination_date": null
+  },
+  {
+    "employee_id": 2,
+    "full_name": "Кузнецов Павел",
+    "position": "управляющий",
+    "store_id": "S002",
+    "hire_date": "2023-05-10",
+    "termination_date": null
+  },
+  {
+    "employee_id": 3,
+    "full_name": "Орлова Елена",
+    "position": "продавец",
+    "store_id": "S003",
+    "hire_date": "2025-01-15",
+    "termination_date": null
+  }
+]

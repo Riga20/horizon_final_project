@@ -1,0 +1,1 @@
+select * from {{ source('staging','hr_raw') }}

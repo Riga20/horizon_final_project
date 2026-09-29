@@ -1,0 +1,4 @@
+card_id,client_id,card_number,issue_date,status
+101,1,HZ100001,2024-01-15,active
+102,2,HZ100002,2024-03-20,active
+103,3,HZ100003,2025-02-01,blocked

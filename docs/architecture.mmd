@@ -1,0 +1,12 @@
+flowchart LR
+A[Cash CSV] --> D[Airflow]
+B[Loyalty PostgreSQL] --> D
+C[HR JSON/API] --> D
+D --> S[(PostgreSQL STAGING)]
+S --> DBT[dbt]
+DBT --> H[CORE Data Vault]
+H --> M[MARTS]
+M --> BI[BI Dashboard]
+DBT --> Q[DQ Tests]
+S --> R[Reconciliation]
+M --> R

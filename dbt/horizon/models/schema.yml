@@ -1,0 +1,43 @@
+version: 2
+
+models:
+  - name: hub_customer
+    columns:
+      - name: customer_hk
+        tests: [not_null, unique]
+  - name: hub_transaction
+    columns:
+      - name: transaction_hk
+        tests: [not_null, unique]
+  - name: hub_product
+    columns:
+      - name: product_hk
+        tests: [not_null, unique]
+  - name: hub_store
+    columns:
+      - name: store_hk
+        tests: [not_null, unique]
+  - name: hub_card
+    columns:
+      - name: card_hk
+        tests: [not_null, unique]
+  - name: hub_loyalty_transaction
+    columns:
+      - name: loyalty_txn_hk
+        tests: [not_null, unique]
+  - name: hub_employee
+    columns:
+      - name: employee_hk
+        tests: [not_null, unique]
+  - name: stg_cards
+    columns:
+      - name: status
+        tests:
+          - accepted_values:
+              values: ['active','blocked','expired']
+  - name: sat_sale
+    columns:
+      - name: sales_amount
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: "> 0"

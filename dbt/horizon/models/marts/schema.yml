@@ -1,0 +1,10 @@
+version: 2
+models:
+  - name: dim_calendar
+    config: {schema: marts}
+  - name: dim_product
+    config: {schema: marts}
+  - name: dim_store
+    config: {schema: marts}
+  - name: fct_sales_daily
+    config: {schema: marts}
