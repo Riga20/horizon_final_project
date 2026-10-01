@@ -1,6 +1,7 @@
-__pycache__/
-*.pyc
-target/
-logs/
-.env
-.DS_Store
+dbt/horizon/.user.yml
+dbt/horizon/dbt_packages/
+dbt/horizon/logs/
+dbt/horizon/target/
+airflow/dags/__pycache__/
+airflow/scripts/__pycache__/
+*.bak

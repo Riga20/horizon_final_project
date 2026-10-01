@@ -1,4 +1,5 @@
 version: '3.9'
+
 services:
   postgres:
     image: postgres:16
@@ -23,8 +24,33 @@ services:
       - ./airflow/dags:/opt/airflow/dags
       - ./airflow/scripts:/opt/airflow/scripts
       - ./data:/opt/airflow/data
+      - ./dbt:/opt/airflow/dbt
     ports: ["8080:8080"]
     command: bash -c "airflow db migrate && airflow users create --username admin --password admin --firstname Admin --lastname User --role Admin --email admin@example.com || true; airflow standalone"
 
+  metabase-db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: metabase
+      POSTGRES_USER: metabase
+      POSTGRES_PASSWORD: metabase
+    volumes:
+      - metabase_db:/var/lib/postgresql/data
+
+  metabase:
+    image: metabase/metabase:latest
+    depends_on:
+      - metabase-db
+      - postgres
+    environment:
+      MB_DB_TYPE: postgres
+      MB_DB_DBNAME: metabase
+      MB_DB_PORT: 5432
+      MB_DB_USER: metabase
+      MB_DB_PASS: metabase
+      MB_DB_HOST: metabase-db
+    ports: ["3000:3000"]
+
 volumes:
   pgdata:
+  metabase_db:

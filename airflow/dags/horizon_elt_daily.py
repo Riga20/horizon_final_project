@@ -1,4 +1,4 @@
-from airflow import DAG
+﻿from airflow import DAG
 from airflow.operators.python import PythonOperator
 from airflow.utils.task_group import TaskGroup
 from datetime import datetime, timedelta
@@ -9,14 +9,35 @@ from loader import load_sales, load_csv, load_hr
 BASE="/opt/airflow/data"
 
 def cash_branch(ds=None):
-    d=(datetime.strptime(ds,"%Y-%m-%d").date()-timedelta(days=1))
-    path=f"{BASE}/sales/sales_{d.strftime('%Y%m%d')}.csv"
-    load_sales(path,d)
-    # Reference data are a documented technical supplement, not a fourth business source.
-    load_csv(f"{BASE}/reference/products.csv","staging.products_raw",
-             ["product_id","product_name","category","brand"],["product_id"])
-    load_csv(f"{BASE}/reference/stores.csv","staging.stores_raw",
-             ["store_id","address","region","phone","store_type"],["store_id"])
+    from pathlib import Path
+
+    sales_dir = Path(f"{BASE}/sales")
+
+    # Загружаем все имеющиеся учебные файлы продаж.
+    # Это обеспечивает воспроизводимый запуск проекта независимо
+    # от текущей календарной даты.
+    for path in sorted(sales_dir.glob("sales_*.csv")):
+        file_date = datetime.strptime(
+            path.stem.replace("sales_", ""),
+            "%Y%m%d"
+        ).date()
+        load_sales(str(path), file_date)
+
+    # Reference data are a documented technical supplement,
+    # not a fourth business source.
+    load_csv(
+        f"{BASE}/reference/products.csv",
+        "staging.products_raw",
+        ["product_id","product_name","category","brand"],
+        ["product_id"]
+    )
+
+    load_csv(
+        f"{BASE}/reference/stores.csv",
+        "staging.stores_raw",
+        ["store_id","address","region","phone","store_type"],
+        ["store_id"]
+    )
 
 def loyalty_branch():
     load_csv(f"{BASE}/loyalty/clients.csv","staging.clients_raw",
@@ -46,3 +67,4 @@ with DAG(
         load_hr_task = PythonOperator(task_id="load_hr_json", python_callable=hr_branch)
 
     [cash, loyalty, hr]
+
